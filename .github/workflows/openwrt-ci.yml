@@ -10,8 +10,10 @@
 name: OpenWrt-CI
 
 on:
-  schedule:
-    - cron: 0 20 * * *
+# schedule:
+#   - cron: 0 20 * * *
+  watch:
+    types: started
 
 jobs:
 
@@ -53,8 +55,8 @@ jobs:
           ./scripts/feeds update -a
           ./scripts/feeds install -a
 
-      - name: Generate configuration file
-        run: make defconfig
+      - name: SSH connection to Actions
+        uses: P3TERX/debugger-action@master
 
       - name: Make download
         run: |
